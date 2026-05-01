@@ -101,69 +101,69 @@ export default function Dashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover flex items-center justify-between">
+        <div className="neo-card p-6 flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-slate-500 mb-1">Total Tasks</p>
-            <p className="text-3xl font-bold text-slate-900">{stats.total}</p>
+            <p className="text-sm font-bold text-slate-500 mb-1 tracking-wide uppercase">Total Tasks</p>
+            <p className="text-4xl font-black text-slate-900 tracking-tighter">{stats.total}</p>
           </div>
-          <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
-            <LayoutDashboard className="w-6 h-6" />
+          <div className="w-14 h-14 bg-slate-900 text-white rounded-2xl flex items-center justify-center shadow-lg">
+            <LayoutDashboard className="w-7 h-7" />
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover flex items-center justify-between">
+        <div className="neo-card p-6 flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-slate-500 mb-1">In Progress</p>
-            <p className="text-3xl font-bold text-blue-600">{stats.inProgress}</p>
+            <p className="text-sm font-bold text-slate-500 mb-1 tracking-wide uppercase">In Progress</p>
+            <p className="text-4xl font-black text-blue-600 tracking-tighter">{stats.inProgress}</p>
           </div>
-          <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
-            <Clock className="w-6 h-6" />
+          <div className="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+            <Clock className="w-7 h-7" />
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover flex items-center justify-between">
+        <div className="neo-card p-6 flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-slate-500 mb-1">Completed</p>
-            <p className="text-3xl font-bold text-emerald-600">{stats.done}</p>
+            <p className="text-sm font-bold text-slate-500 mb-1 tracking-wide uppercase">Completed</p>
+            <p className="text-4xl font-black text-emerald-600 tracking-tighter">{stats.done}</p>
           </div>
-          <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
-            <CheckCircle2 className="w-6 h-6" />
+          <div className="w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
+            <CheckCircle2 className="w-7 h-7" />
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover flex items-center justify-between">
+        <div className="neo-card p-6 flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-slate-500 mb-1">Overdue</p>
-            <p className="text-3xl font-bold text-red-600">{stats.overdue}</p>
+            <p className="text-sm font-bold text-slate-500 mb-1 tracking-wide uppercase">Overdue</p>
+            <p className="text-4xl font-black text-red-600 tracking-tighter">{stats.overdue}</p>
           </div>
-          <div className="w-12 h-12 bg-red-50 text-red-600 rounded-xl flex items-center justify-center">
-            <AlertCircle className="w-6 h-6" />
+          <div className="w-14 h-14 bg-red-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-red-500/20">
+            <AlertCircle className="w-7 h-7" />
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Progress Card */}
-        <div className="lg:col-span-1 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-          <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2 mb-6">
-            <TrendingUp className="w-5 h-5 text-indigo-500" /> Overall Progress
+        <div className="lg:col-span-1 neo-card p-8">
+          <h3 className="text-xl font-bold text-slate-900 flex items-center gap-3 mb-8">
+            <TrendingUp className="w-6 h-6 text-indigo-600" /> Overall Progress
           </h3>
           <div className="flex flex-col items-center justify-center py-6">
-            <div className="relative w-40 h-40 flex items-center justify-center">
+            <div className="relative w-48 h-48 flex items-center justify-center">
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#f1f5f9" strokeWidth="3" />
-                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#6366f1" strokeWidth="3" strokeDasharray={`${completionRate}, 100`} className="transition-all duration-1000 ease-out" />
+                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#f4f4f5" strokeWidth="3" />
+                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#4f46e5" strokeWidth="3" strokeDasharray={`${completionRate}, 100`} strokeLinecap="round" className="transition-all duration-1000 ease-out" />
               </svg>
-              <div className="absolute text-3xl font-extrabold text-slate-900">{completionRate}%</div>
+              <div className="absolute text-5xl font-black tracking-tighter text-slate-900">{completionRate}%</div>
             </div>
-            <p className="mt-6 text-sm text-slate-500 font-medium">Completion Rate</p>
+            <p className="mt-8 text-sm font-bold text-slate-500 uppercase tracking-widest">Completion Rate</p>
           </div>
         </div>
 
         {/* Task List */}
-        <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-          <div className="p-6 border-b border-slate-100 flex items-center justify-between">
-            <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-indigo-500" /> Recent Tasks
+        <div className="lg:col-span-2 neo-card overflow-hidden">
+          <div className="p-6 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
+            <h3 className="text-xl font-bold text-slate-900 flex items-center gap-3">
+              <FileText className="w-6 h-6 text-indigo-600" /> Recent Tasks
             </h3>
-            <Link href="/projects" className="text-sm font-medium text-indigo-600 hover:text-indigo-700 flex items-center gap-1">
+            <Link href="/projects" className="text-sm font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 transition-colors">
               View all <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
