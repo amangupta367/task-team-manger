@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 export async function PATCH(req: Request, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
@@ -34,22 +34,6 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     return NextResponse.json(updated);
   } catch (error) {
     return NextResponse.json({ error: "Failed to update task" }, { status: 500 });
-  }
-}
-
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== "ADMIN") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  try {
-    await prisma.task.delete({
-      where: { id: params.id },
-    });
-    return NextResponse.json({ message: "Task deleted" });
-  } catch (error) {
-    return NextResponse.json({ error: "Failed to delete task" }, { status: 500 });
   }
 }
 
