@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { CheckCircle2, Clock, AlertCircle, Plus, LayoutDashboard, Briefcase, FileText, ArrowRight, BarChart3, TrendingUp } from "lucide-react";
+import { CheckCircle2, Clock, AlertCircle, Plus, LayoutDashboard, Briefcase, FileText, ArrowRight, BarChart3, TrendingUp, Download } from "lucide-react";
 import { format, isBefore, startOfToday } from "date-fns";
 import { useToast } from "@/components/Toast";
 
@@ -50,6 +50,25 @@ export default function Dashboard() {
 
   const completionRate = stats.total > 0 ? Math.round((stats.done / stats.total) * 100) : 0;
 
+  const exportToCSV = () => {
+    const headers = ["Task Title", "Project", "Status", "Due Date"];
+    const rows = myTasks.map(t => [
+      `"${t.title.replace(/"/g, '""')}"`, 
+      `"${t.project.name.replace(/"/g, '""')}"`, 
+      t.status, 
+      format(new Date(t.dueDate), "yyyy-MM-dd")
+    ]);
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `tasks_export_${format(new Date(), "yyyyMMdd")}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    toast.show("Tasks exported successfully", "success");
+  };
+
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-10">
@@ -68,9 +87,12 @@ export default function Dashboard() {
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Dashboard</h1>
           <p className="mt-2 text-slate-500">Welcome back, {session?.user?.name}! Here's what's happening.</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
+          <button onClick={exportToCSV} className="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm">
+            <Download className="w-4 h-4" /> Export CSV
+          </button>
           {session?.user?.role === "ADMIN" && (
-            <Link href="/projects" className="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm">
+            <Link href="/projects" className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-indigo-700 transition-all shadow-sm">
               <Briefcase className="w-4 h-4" /> Manage Projects
             </Link>
           )}

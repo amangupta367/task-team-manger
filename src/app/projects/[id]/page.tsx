@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState, use } from "react";
 import { format } from "date-fns";
-import { Plus, User as UserIcon, Calendar, CheckCircle2, Circle, Clock, LayoutDashboard, ArrowLeft } from "lucide-react";
+import { Plus, User as UserIcon, Calendar, CheckCircle2, Circle, Clock, LayoutDashboard, ArrowLeft, Trash2 } from "lucide-react";
 import { useToast } from "@/components/Toast";
 import Link from "next/link";
 
@@ -109,6 +109,21 @@ export default function ProjectDetails({ params }: { params: Promise<{ id: strin
     }
   };
 
+  const deleteTask = async (taskId: string) => {
+    if (!confirm("Are you sure you want to delete this task?")) return;
+    try {
+      const res = await fetch(`/api/tasks/${taskId}`, { method: "DELETE" });
+      if (res.ok) {
+        toast.show("Task deleted", "success");
+        fetchProject();
+      } else {
+        toast.show("Failed to delete task", "error");
+      }
+    } catch {
+      toast.show("Error deleting task", "error");
+    }
+  };
+
   if (loading) return (
     <div className="max-w-7xl mx-auto px-4 py-10 flex justify-center">
       <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
@@ -189,7 +204,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ id: strin
                     )}
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-slate-100">
+                  <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
                     <select
                       value={task.status}
                       onChange={(e) => updateTaskStatus(task.id, e.target.value)}
@@ -199,6 +214,15 @@ export default function ProjectDetails({ params }: { params: Promise<{ id: strin
                       <option value="IN_PROGRESS">In Progress</option>
                       <option value="DONE">Done</option>
                     </select>
+                    {session?.user?.role === "ADMIN" && (
+                      <button 
+                        onClick={() => deleteTask(task.id)}
+                        className="ml-2 p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        title="Delete Task"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}

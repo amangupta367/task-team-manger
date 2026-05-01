@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Briefcase, Plus, MoreVertical, Search, ArrowRight } from "lucide-react";
+import { Briefcase, Plus, MoreVertical, Search, ArrowRight, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/components/Toast";
 
@@ -63,6 +63,23 @@ export default function Projects() {
       toast.show("An error occurred", "error");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const deleteProject = async (e: React.MouseEvent, projectId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!confirm("Are you sure you want to delete this project and all its tasks?")) return;
+    try {
+      const res = await fetch(`/api/projects/${projectId}`, { method: "DELETE" });
+      if (res.ok) {
+        toast.show("Project deleted", "success");
+        fetchProjects();
+      } else {
+        toast.show("Failed to delete project", "error");
+      }
+    } catch {
+      toast.show("Error deleting project", "error");
     }
   };
 
@@ -136,9 +153,20 @@ export default function Projects() {
                   <div className="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 group-hover:scale-110 transition-transform">
                     <Briefcase className="w-6 h-6" />
                   </div>
-                  <button className="text-slate-400 hover:text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <ArrowRight className="w-5 h-5" />
-                  </button>
+                  <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    {session?.user?.role === "ADMIN" && (
+                      <button 
+                        onClick={(e) => deleteProject(e, project.id)}
+                        className="text-slate-400 hover:text-red-500 hover:bg-red-50 p-1.5 rounded-lg transition-colors"
+                        title="Delete Project"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
+                    <button className="text-slate-400 hover:text-indigo-600 p-1.5 rounded-lg transition-colors">
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-1">{project.name}</h3>
                 <p className="text-sm text-slate-500 line-clamp-2 min-h-[40px]">
