@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "next";
 import Link from "next/link";
 import { CheckCircle2, Clock, AlertCircle, Plus, LayoutDashboard, Briefcase, FileText } from "lucide-react";
 import { format } from "date-fns";

@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "next";
 import { useParams } from "next/navigation";
 import { format } from "date-fns";
 import { Plus, User as UserIcon } from "lucide-react";
