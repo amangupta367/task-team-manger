@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "next";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Briefcase, Plus, MoreVertical } from "lucide-react";
 import { format } from "date-fns";
